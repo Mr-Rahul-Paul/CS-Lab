@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{pifont}
+
+% Define custom environments for problem sections
+\newcounter{problemcounter}
+\newenvironment{problem}[2]{%
+\stepcounter{problemcounter}
+\vspace{1em}
+\noindent\rule{\textwidth}{1pt}
+\begin{center}
+\Large\textbf{#1}
+\end{center}
+\noindent\rule{\textwidth}{1pt}
+\label{#2}
+\vspace{1em}
+}
+
+% Define code styling
+\lstset{
+language=C++,
+basicstyle=\ttfamily\small,
+numbers=left,
+numberstyle=\tiny\color{gray},
+commentstyle=\color{gray},
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+tabsize=2,
+showstringspaces=false,
+breaklines=true,
+captionpos=b,
+caption={Code Snippet}
+}
+
+\title{Analysis of Binary Insertion Sort (BIS)}\\
+\author{Abhishek Beniwal, Aditya Purohit, Rahul Paul, Vaidya Parth \\
+\small{Roll no.: 202411002, 202411003, 202411078, 202411095} \\
+\small{Prof: Dr. Pareek} \\
+\small{Course : CS/IT-203} \\
+\small{Date : 27th September 2025}}\\
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Binary Insertion Sort}
+\subsection{Introduction}
+In this report, we analyze the behavior of the Binary Insertion Sort algorithm(in C++)
+
+\subsection{Code Snippet}
+\begin{lstlisting}[caption={Binary Insertion Sort Code}]
+
+\end{lstlisting}
+
+\subsection{Performance and Complexity Analysis}
+
+
+\subsubsection{Complexity Analysis}
+The algorithm's performance :
+\begin{itemize}
+\item \textbf{Best Case:}
+\begin{itemize}
+\item Complexity: O(n logn)
+\item already sorted \end{itemize}
+\item \textbf{Average Case:}
+\begin{itemize}
+    \item Complexity: $O(n^2)$
+    \item In the average case, finding the position takes $O(\log n)$ time for the $n$-th element. However, shifting still takes, on average, $O(n)$ time. This dominates the overall complexity, resulting in $O(n^2)$.
+\end{itemize}
+
+
+\item \textbf{Worst Case:}
+\begin{itemize}
+\item Complexity: $O(n^2)$
+\item Occurs when the array is sorted in reverse order.
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Space Complexity}
+\begin{itemize}
+\item  The space complexity of Binary Insertion Sort is O(1)
+\end{itemize}
+\bibliographystyle{apalike}
+\end{document}

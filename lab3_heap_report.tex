@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{pifont}
+
+% Define custom environments for problem sections
+\newcounter{problemcounter}
+\newenvironment{problem}[2]{%
+\stepcounter{problemcounter}
+\vspace{1em}
+\noindent\rule{\textwidth}{1pt}
+\begin{center}
+\Large\textbf{#1}
+\end{center}
+\noindent\rule{\textwidth}{1pt}
+\label{#2}
+\vspace{1em}
+}
+
+% Define code styling
+\lstset{
+language=C++,
+basicstyle=\ttfamily\small,
+numbers=left,
+numberstyle=\tiny\color{gray},
+commentstyle=\color{gray},
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+tabsize=2,
+showstringspaces=false,
+breaklines=true,
+captionpos=b,
+caption={Code Snippet}
+}
+
+\title{Analysis of Heap-Based Algorithms}\\
+\author{Abhishek Beniwal, Aditya Purohit, Rahul Paul, Vaidya Parth \\
+\small{Roll no.: 202411002, 202411003, 202411078, 202411095} \\
+\small{Prof: Dr. Pareek} \\
+\small{Course : CS/IT-203} \\
+\small{Date : \today}}\\
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This report analyzes four heap-based algorithms implemented in C++. Each algorithm leverages the heap data structure to efficiently solve different computational problems. We examine their implementation, complexity analysis, and performance characteristics.
+
+\section{Finding Kth Smallest and Kth Largest Elements}
+\subsection{Problem Description}
+Given an array of n integers and a value k, find the kth smallest and kth largest elements in the array using heap data structures.
+
+\subsection{Algorithm Overview}
+The algorithm uses two separate heaps:
+\begin{itemize}
+    \item A min-heap to find the kth smallest element
+    \item A max-heap to find the kth largest element
+\end{itemize}
+
+\subsection{Code Implementation}
+\begin{lstlisting}[caption={Kth Smallest and Largest Elements - lab3q4.cpp}]
+% CODE TO BE INSERTED HERE
+% Implementation uses min_heap() and max_heap() functions
+% with get_min() and get_max() extraction methods
+\end{lstlisting}
+
+\subsection{Complexity Analysis}
+\subsubsection{Time Complexity}
+\begin{itemize}
+    \item \textbf{Building Heaps:} $O(n)$ for each heap using bottom-up heapification
+    \item \textbf{Extraction Operations:} $O(k \log n)$ for k extractions from each heap
+    \item \textbf{Overall Complexity:} $O(n + k \log n)$
+\end{itemize}
+
+\subsubsection{Space Complexity}
+\begin{itemize}
+    \item $O(n)$ - Two arrays of size n for storing min and max heaps
+    \item The algorithm uses auxiliary space for two complete copies of the input
+\end{itemize}
+
+\section{Merging K Sorted Lists}
+\subsection{Problem Description}
+Given k sorted lists with varying sizes, merge them into a single sorted list using heap sort.
+
+\subsection{Algorithm Overview}
+The approach involves:
+\begin{itemize}
+    \item Reading all elements from k lists into a single array
+    \item Building a max-heap from all elements
+    \item Performing heap sort to obtain the final sorted order
+\end{itemize}
+
+\subsection{Code Implementation}
+\begin{lstlisting}[caption={Merging K Sorted Lists - lab3q3.cpp}]
+% CODE TO BE INSERTED HERE
+% Uses maxheapi() for heapification
+% extractMax() for sorting elements
+\end{lstlisting}
+
+\subsection{Complexity Analysis}
+\subsubsection{Time Complexity}
+\begin{itemize}
+    \item \textbf{Reading Input:} $O(N)$ where N is total number of elements
+    \item \textbf{Building Max-Heap:} $O(N)$ using bottom-up approach
+    \item \textbf{Heap Sort:} $O(N \log N)$ for extracting all elements
+    \item \textbf{Overall Complexity:} $O(N \log N)$
+\end{itemize}
+
+\subsubsection{Space Complexity}
+\begin{itemize}
+    \item $O(N)$ - Arrays for storing all elements and sorted result
+    \item No additional recursive stack space required
+\end{itemize}
+
+\section{Finding K Closest Points to Origin}
+\subsection{Problem Description}
+Given n points in 2D space, find the k points closest to the origin (0, 0) using a min-heap based on Euclidean distance.
+
+\subsection{Algorithm Overview}
+The solution involves:
+\begin{itemize}
+    \item Computing squared distance for each point (avoiding square root for efficiency)
+    \item Building a min-heap based on distance values
+    \item Extracting k minimum distance points
+\end{itemize}
+
+\subsection{Code Implementation}
+\begin{lstlisting}[caption={K Closest Points - closest_points_heap.cpp}]
+% CODE TO BE INSERTED HERE
+% Uses dist_heap[] for distances
+% Maintains pointx[] and pointy[] arrays
+% heapifyDown() for maintaining heap property
+\end{lstlisting}
+
+\subsection{Complexity Analysis}
+\subsubsection{Time Complexity}
+\begin{itemize}
+    \item \textbf{Distance Calculation:} $O(n)$ for all points
+    \item \textbf{Building Min-Heap:} $O(n)$ using heapify
+    \item \textbf{Extracting K Points:} $O(k \log n)$ for k extractions
+    \item \textbf{Overall Complexity:} $O(n + k \log n)$
+\end{itemize}
+
+\subsubsection{Space Complexity}
+\begin{itemize}
+    \item $O(n)$ - Three arrays for distances and coordinates
+    \item In-place heap operations require no additional space
+\end{itemize}
+
+\section{Finding K Most Frequent Elements}
+\subsection{Problem Description}
+Given an array of integers, find the k most frequently occurring elements using a max-heap based on frequency counts.
+
+\subsection{Algorithm Overview}
+The algorithm consists of:
+\begin{itemize}
+    \item Counting frequency of each unique element
+    \item Building a max-heap based on frequencies
+    \item Extracting k elements with highest frequencies
+\end{itemize}
+
+\subsection{Code Implementation}
+\begin{lstlisting}[caption={K Most Frequent Elements - most_recurring.cpp}]
+% CODE TO BE INSERTED HERE
+% Uses frequency array with offset for negative numbers
+% Builds max-heap based on frequency counts
+% extractMax() returns most frequent elements
+\end{lstlisting}
+
+\subsection{Complexity Analysis}
+\subsubsection{Time Complexity}
+\begin{itemize}
+    \item \textbf{Frequency Counting:} $O(n)$ for scanning input
+    \item \textbf{Building Frequency Array:} $O(R)$ where R is range of values (201 in this case)
+    \item \textbf{Building Max-Heap:} $O(m)$ where m is number of unique elements
+    \item \textbf{Extracting K Elements:} $O(k \log m)$
+    \item \textbf{Overall Complexity:} $O(n + m + k \log m)$
+\end{itemize}
+
+\subsubsection{Space Complexity}
+\begin{itemize}
+    \item $O(R)$ - Frequency array for range of possible values
+    \item $O(m)$ - Heap arrays for unique elements
+    \item Total: $O(R + m)$ where R = 201 (fixed range)
+\end{itemize}
+
+\section{Comparative Analysis}
+\subsection{Common Characteristics}
+All four algorithms share several key features:
+\begin{itemize}
+    \item Utilize heap data structure for efficient element access
+    \item Implement heapify operations for maintaining heap property
+    \item Use in-place operations where possible to minimize space usage
+    \item Achieve better than naive $O(n^2)$ time complexity
+\end{itemize}
+
+\subsection{Performance Comparison}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Algorithm} & \textbf{Time Complexity} & \textbf{Space Complexity} \\
+\hline
+Kth Smallest/Largest & $O(n + k \log n)$ & $O(n)$ \\
+\hline
+Merge K Lists & $O(N \log N)$ & $O(N)$ \\
+\hline
+K Closest Points & $O(n + k \log n)$ & $O(n)$ \\
+\hline
+K Most Frequent & $O(n + m + k \log m)$ & $O(R + m)$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Conclusion}
+The heap data structure proves to be highly efficient for problems involving:
+\begin{itemize}
+    \item Finding k extreme elements (minimum/maximum)
+    \item Maintaining sorted order during dynamic operations
+    \item Priority-based element extraction
+\end{itemize}
+
+These implementations demonstrate that heap-based solutions often provide optimal or near-optimal time complexity for selection and sorting problems, making them essential tools in algorithm design.
+
+\section{References}
+\begin{itemize}
+    \item Cormen, T. H., Leiserson, C. E., Rivest, R. L., \& Stein, C. (2009). \textit{Introduction to Algorithms} (3rd ed.). MIT Press.
+    \item Sedgewick, R., \& Wayne, K. (2011). \textit{Algorithms} (4th ed.). Addison-Wesley.
+\end{itemize}
+
+\bibliographystyle{apalike}
+\end{document}

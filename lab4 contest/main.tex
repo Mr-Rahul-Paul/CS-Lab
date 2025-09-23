@@ -1,0 +1,178 @@
+\documentclass[11pt,a4paper]{article}
+
+% Basic packages
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage[T1]{fontenc}
+
+% Listings setup for C++
+\lstdefinelanguage{C++Custom}[]{C++}{
+  morekeywords={int,long,long long,vector,string,bool,true,false,nullptr,auto}
+}
+
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{230,230,230}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codekeyword}{RGB}{0,0,180}
+
+\lstset{
+  language=C++Custom,
+  basicstyle=\linespread{1.05}\ttfamily\small,
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment},
+  stringstyle=\color{codestring},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  numbers=left,
+  numberstyle=\tiny, 
+  numbersep=8pt,
+  showstringspaces=false,
+  tabsize=2,
+  columns=fullflexible,
+  breaklines=true,
+  keepspaces=true,
+  captionpos=b
+}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{0.6em}{}
+
+\title{Report: Dynamic Programming Problems (q1.cpp and q2.cpp)}
+\author{\small Rahul Paul \\
+Aditya Purohit \\
+Abhishek Beniwal \\
+Vaidya Parth}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setstretch{1.15}
+
+\tableofcontents
+\vspace{1em}
+
+\section{Problem q1.cpp: Maximum Sum of Non-Adjacent Elements}
+\subsection{Problem Statement (Brief)}
+Given an array of integers, compute the maximum sum of elements such that no two chosen elements are adjacent.
+
+\subsection{Approaches}
+\begin{enumerate}[leftmargin=*]
+  \item Top-Down Recursion with Memoization (DP)
+  \item Bottom-Up Tabulation (DP)
+  \item Space-Optimized Iterative DP
+\end{enumerate}
+
+\subsection{Top-Down Recursion with Memoization}
+\paragraph{Idea} At index \(i\), either take element \(i\) and move to \(i+2\), or skip to \(i+1\). Memoize the best for each \(i\).
+
+\paragraph{Time Complexity} \(O(n)\) — each index solved once.
+
+\paragraph{Space Complexity} \(O(n)\) — memo array plus recursion stack in the worst case.
+
+\paragraph{Code Placeholder}
+% Paste your code snippet below
+\begin{lstlisting}[language=C++, caption={q1: Top-Down with Memoization}, label={lst:q1-topdown}]
+// TODO: Paste the recursion + memoization implementation here
+\end{lstlisting}
+
+\subsection{Bottom-Up Tabulation}
+\paragraph{Idea} Build \texttt{dp[i]} as the best answer starting from index \(i\), filling from right to left.
+
+\paragraph{Time Complexity} \(O(n)\)
+
+\paragraph{Space Complexity} \(O(n)\)
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q1: Bottom-Up Tabulation}, label={lst:q1-tab}]
+// TODO: Paste the tabulation implementation here
+\end{lstlisting}
+
+\subsection{Space-Optimized Iterative}
+\paragraph{Idea} Track only \texttt{next} = dp[i+1] and \texttt{next2} = dp[i+2] while iterating from right to left.
+
+\paragraph{Time Complexity} \(O(n)\)
+
+\paragraph{Space Complexity} \(O(1)\)
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q1: Space-Optimized Iterative}, label={lst:q1-iter}]
+// TODO: Paste the space-optimized iterative implementation here
+\end{lstlisting}
+
+\section{Problem q2.cpp: Maximum Subarray Sum (Kadane's Problem)}
+\subsection{Problem Statement (Brief)}
+Given an array of integers, find a contiguous subarray with the maximum possible sum.
+
+\subsection{Approaches}
+\begin{enumerate}[leftmargin=*]
+  \item Top-Down Recursion with State (conceptual/experimental)
+  \item DP over all subarrays (range-sum memo; theoretical) 
+  \item Bottom-Up DP (Kadane via dp array)
+  \item Space-Optimized Kadane's Algorithm
+\end{enumerate}
+
+\subsection{Top-Down Recursion with State}
+\paragraph{Idea} Recur over index \(i\) and a boolean indicating whether a subarray has started. This ensures non-empty selection. Primarily pedagogical.
+
+\paragraph{Time Complexity} \(O(n)\) with memoization over states \((i, started))\).
+
+\paragraph{Space Complexity} \(O(n)\) for memo plus recursion stack.
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q2: Top-Down with State}, label={lst:q2-topdown}]
+// TODO: Paste the recursion + memoization implementation here
+\end{lstlisting}
+
+\subsection{DP over All Subarrays (Range-Sum Memo)}
+\paragraph{Idea} Consider every interval \([i, j]\), memo the sum of that interval, and track the maximum. Educational but not optimal.
+
+\paragraph{Time Complexity} Typically \(O(n^3)\) if each range sum is recomputed inside state transitions; with prefix sums it can be reduced to \(O(n^2)\), but the naive range-sum-within-state approach is cubic overall.
+
+\paragraph{Space Complexity} \(O(n^2)\) for the 2D memo table.
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q2: DP over All Subarrays}, label={lst:q2-n2}]
+// TODO: Paste the range DP implementation here
+\end{lstlisting}
+
+\subsection{Bottom-Up DP (Kadane with dp array)}
+\paragraph{Idea} Let \texttt{dp[i]} be the maximum subarray sum ending at index \(i\). Then \(dp[i] = \max(a_i, a_i + dp[i-1])\). Track the global maximum.
+
+\paragraph{Time Complexity} \(O(n)\)
+
+\paragraph{Space Complexity} \(O(n)\)
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q2: Bottom-Up DP (Kadane via dp array)}, label={lst:q2-tab}]
+// TODO: Paste the bottom-up dp implementation here
+\end{lstlisting}
+
+\subsection{Space-Optimized Kadane}
+\paragraph{Idea} Maintain only two scalars: current best ending here and best so far.
+
+\paragraph{Time Complexity} \(O(n)\)
+
+\paragraph{Space Complexity} \(O(1)\)
+
+\paragraph{Code Placeholder}
+\begin{lstlisting}[language=C++, caption={q2: Space-Optimized Kadane}, label={lst:q2-iter}]
+// TODO: Paste the space-optimized Kadane implementation here
+\end{lstlisting}
+
+\section{References}
+\begin{itemize}[leftmargin=*]
+  \item Standard Dynamic Programming techniques for non-adjacent selection ("House Robber" pattern)
+  \item Kadane's Algorithm for maximum subarray sum
+\end{itemize}
+
+\end{document}
