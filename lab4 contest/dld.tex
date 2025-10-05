@@ -1,0 +1,445 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREAMBLE: Document setup and package loading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+
+% PACKAGES FOR DOCUMENT GEOMETRY AND LAYOUT
+\usepackage[a4paper, margin=1in]{geometry} % Set paper size and margins
+\usepackage{fancyhdr}                      % For custom headers and footers
+\usepackage{graphicx}                      % To include images
+
+% PACKAGES FOR TYPOGRAPHY AND MATH
+\usepackage{amsmath}                       % Advanced math environments and symbols
+\usepackage{amsfonts}                      % Math fonts
+\usepackage{amssymb}                       % More math symbols
+
+% PACKAGES FOR TABLES AND FIGURES
+\usepackage{booktabs}                      % For professional-quality tables (\toprule, \midrule, \bottomrule)
+\usepackage{caption}                       % For customizing captions of figures and tables
+\captionsetup{font=small, labelfont=bf}     % Make captions smaller with a bold label
+
+% OTHER USEFUL PACKAGES
+\usepackage{hyperref}                      % For creating hyperlinks within the document
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Digital Electronics Laboratory Report},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HEADER AND FOOTER CONFIGURATION using fancyhdr
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}                          % Apply the fancy style
+\fancyhf{}                                 % Clear all header and footer fields
+\fancyhead[L]{\nouppercase{\leftmark}}      % Left header: Current section title
+\fancyfoot[C]{\thepage}                    % Center footer: Page number
+\renewcommand{\headrulewidth}{0.4pt}       % Line at the top of the page
+\renewcommand{\footrulewidth}{0.4pt}       % Line at the bottom of the page
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+    \centering
+    {\Huge {\textbf{Indian Institute of Information Technology Vadodara\\}}}
+    \vspace{0.25cm}
+    {\Huge {\textbf{International Campus Diu}}}
+    
+    \vspace{1.5cm}
+    
+    \includegraphics[scale=0.7]{logo.png} 
+    
+    \vspace{1cm}
+    
+    \Large \textbf{Digital Logic Design\\Lab Report\\}
+    
+    \vspace*{2.25cm}
+    
+    \begin{tabular}{l l}
+        \textbf{Name:} & Rahul Paul\\
+        \textbf{Roll No:} & 202411078\\
+        \textbf{Branch:} & Computer Science and Engineering \\
+        \textbf{Batch/Section:} & CS DLD \\
+        \textbf{Subject:} & EC261 \\
+        \textbf{Session:} & 2024-25 \\
+    \end{tabular}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE OF CONTENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXPERIMENT 1: BASIC LOGIC GATES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiment 1: Basic Logic Gates}
+
+\subsection{Aim}
+Verification of truth tables for basic logic gates.
+
+\subsection{Apparatus/Software Required}
+\begin{itemize}
+    \item Logic trainer kit
+    \item Logic gates / ICs (IC-7408, IC-7432, IC-7404, IC-7400, IC-7402, IC-7486)
+    \item Connecting wires
+    \item Logisim (for logic diagrams)
+\end{itemize}
+\subsection{Logic Diagram (Logisim)}
+Draw minimal gate-level circuits in Logisim for each gate and verify outputs match the truth tables.
+
+
+\subsection{Theory}
+Logic gates are foundational electronic circuits that perform logical operations on one or more binary inputs to produce a single binary output. A truth table systematically lists all possible input combinations and their corresponding outputs for a specific logic gate.
+\begin{itemize}
+    \item \textbf{AND Gate:} The output is 1 only when all of its inputs are 1.
+    \item \textbf{OR Gate:} The output is 1 if any or all of its inputs are 1.
+    \item \textbf{NOT Gate (Inverter):} The output is the complement of its single input.
+    \item \textbf{NAND Gate:} An AND gate followed by a NOT gate. Its output is 1 if any or all inputs are 0.
+    \item \textbf{NOR Gate:} An OR gate followed by a NOT gate. Its output is 1 only when all inputs are 0.
+    \item \textbf{XOR Gate:} The output is 1 when the number of high (1) inputs is odd.
+\end{itemize}
+
+\subsection{Boolean Expressions and Truth Tables}
+\subsubsection{AND Gate}
+\textbf{Boolean Expression:} $Y = A \cdot B$
+\begin{table}[htbp]
+    \centering
+    \caption{AND Gate Truth Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \textbf{Input A} & \textbf{Input B} & \textbf{Output Y} \\ \midrule
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{OR Gate}
+\textbf{Boolean Expression:} $Y = A + B$
+\begin{table}[htbp]
+    \centering
+    \caption{OR Gate Truth Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \textbf{Input A} & \textbf{Input B} & \textbf{Output Y} \\ \midrule
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 1 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{NOT Gate}
+\textbf{Boolean Expression:} $Y = \overline{A}$
+\begin{table}[htbp]
+    \centering
+    \caption{NOT Gate Truth Table}
+    \begin{tabular}{c c}
+        \toprule
+        \textbf{Input A} & \textbf{Output Y} \\ \midrule
+        0 & 1 \\
+        1 & 0 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{NAND Gate}
+\textbf{Boolean Expression:} $Y = \overline{A \cdot B}$
+\begin{table}[htbp]
+    \centering
+    \caption{NAND Gate Truth Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \textbf{Input A} & \textbf{Input B} & \textbf{Output Y} \\ \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{NOR Gate}
+\textbf{Boolean Expression:} $Y = \overline{A + B}$
+\begin{table}[htbp]
+    \centering
+    \caption{NOR Gate Truth Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \textbf{Input A} & \textbf{Input B} & \textbf{Output Y} \\ \midrule
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 0 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{XOR Gate}
+\textbf{Boolean Expression:} $Y = A \oplus B$
+\begin{table}[htbp]
+    \centering
+    \caption{XOR Gate Truth Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \textbf{Input A} & \textbf{Input B} & \textbf{Output Y} \\ \midrule
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Connect the trainer kit to the AC power supply.
+    \item Connect the inputs of a logic gate to the logic sources and its output to a logic indicator.
+    \item Apply all possible input combinations and observe the output for each.
+    \item Verify the observed outputs against the gate's truth table.
+    \item Repeat the process for all other logic gates.
+    \item Switch off the AC power supply.
+\end{enumerate}
+
+\subsection{Result/Conclusion}
+The truth tables for all basic logic gates were successfully verified. The observed outputs consistently matched the expected outputs as defined by their respective Boolean functions.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXPERIMENT 2: UNIVERSAL GATES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiment 2: Universal Gates}
+
+\subsection{Aim}
+Realization of logic functions with the help of universal gates—NAND and NOR gates.
+
+\subsection{Apparatus/Software Required}
+\begin{itemize}
+    \item Logic trainer kit
+    \item NAND gates (IC 7400) and NOR gates (IC 7402)
+    \item Connecting wires
+    \item Logisim (for logic diagrams)
+\end{itemize}
+\subsection{Logic Diagram (Logisim)}
+Implement NOT/AND/OR using only NAND and only NOR gates in Logisim; confirm operation with the corresponding truth tables.
+
+
+\subsection{Theory}
+NAND and NOR gates are known as *universal gates* because any other logic function (AND, OR, NOT, etc.) can be realized by using only NAND gates or only NOR gates. This property is fundamental to digital circuit design.
+
+\subsubsection{Realization using NAND Gates}
+\begin{itemize}
+    \item \textbf{NOT Gate:} Tie the inputs of a NAND gate together. The expression is $Y=(A \cdot A)' = A'$.
+    \item \textbf{AND Gate:} Invert the output of a NAND gate. The expression is $Y=((A \cdot B)')' = A \cdot B$.
+    \item \textbf{OR Gate:} Give inverted inputs to a NAND gate, based on DeMorgan's theorem. The expression is $Y=(A' \cdot B')' = A + B$.
+\end{itemize}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Connect the trainer kit to AC power supply.
+    \item Construct the circuit for a logic function to be realised using only NAND or NOR gates.
+    \item Connect the inputs to logic sources and the output of the final gate to a logic indicator.
+    \item Apply various input combinations and observe the output for each one.
+    \item Verify the truth table for each input/output combination.
+    \item Repeat the process for all logic functions.
+    \item Switch off the AC power supply.
+\end{enumerate}
+
+\subsection{Result/Conclusion}
+All basic logic functions were successfully implemented using only NAND gates and only NOR gates, confirming their universal nature.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXPERIMENT 3: ADDERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiment 3: Half Adder and Full Adder}
+
+\subsection{Aim}
+Construction of Half Adder and Full Adder using XOR and NAND gates and verification of their operation.
+
+\subsection{Apparatus/Software Required}
+\begin{itemize}
+    \item Logic trainer kit
+    \item Logic gates: XOR (IC 7486), NAND (IC 7400)
+    \item Logisim (for logic diagrams)
+\end{itemize}
+\subsection{Logic Diagram (Logisim)}
+In Logisim, build a Half Adder (XOR for SUM, AND for CARRY) and a Full Adder (two Half Adders + OR). Verify with truth tables.
+
+
+\subsection{Theory}
+\textbf{Half Adder:} Adds two input bits (A, B) and produces outputs SUM and CARRY.
+\\SUM is 1 if exactly one input is 1 (XOR operation); CARRY is 1 when both inputs are 1 (AND operation).
+\\Boolean expressions: \; $SUM = A\oplus B = A\overline{B} + \overline{A}B$,\; $CARRY = A\cdot B$.
+
+\textbf{Full Adder:} Adds three bits (A, B, $C_{in}$). Can be built from two Half Adders and an OR gate.
+\\Boolean expressions: \; $SUM = A\oplus B\oplus C_{in}$,\; $C_{out} = (A\cdot B) + C_{in}(A\oplus B)$.
+
+\subsection{Boolean Expressions and Truth Tables}
+\subsubsection{Half Adder}
+\textbf{Expressions:} $SUM = A \oplus B$, $CARRY = A \cdot B$
+\begin{table}[htbp]
+    \centering
+    \caption{Half Adder Truth Table}
+    \begin{tabular}{cc cc}
+        \toprule
+        \multicolumn{2}{c}{\textbf{Inputs}} & \multicolumn{2}{c}{\textbf{Outputs}} \\
+        \cmidrule(r){1-2} \cmidrule(l){3-4}
+        \textbf{A} & \textbf{B} & \textbf{SUM} & \textbf{CARRY} \\ \midrule
+        0 & 0 & 0 & 0 \\
+        0 & 1 & 1 & 0 \\
+        1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 1 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Full Adder}
+\textbf{Expressions:} $SUM = A \oplus B \oplus C_{in}$, $C_{out} = (A \cdot B) + C_{in}(A \oplus B)$
+\begin{table}[htbp]
+    \centering
+    \caption{Full Adder Truth Table}
+    \begin{tabular}{ccc cc}
+        \toprule
+        \multicolumn{3}{c}{\textbf{Inputs}} & \multicolumn{2}{c}{\textbf{Outputs}} \\
+        \cmidrule(r){1-3} \cmidrule(l){4-5}
+        \textbf{A} & \textbf{B} & \textbf{$C_{in}$} & \textbf{SUM} & \textbf{$C_{out}$} \\ \midrule
+        0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 1 & 0 \\
+        0 & 1 & 0 & 1 & 0 \\
+        0 & 1 & 1 & 0 & 1 \\
+        1 & 0 & 0 & 1 & 0 \\
+        1 & 0 & 1 & 0 & 1 \\
+        1 & 1 & 0 & 0 & 1 \\
+        1 & 1 & 1 & 1 & 1 \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Connect the trainer kit to AC power supply.
+    \item Connect logic sources to the inputs of the adder.
+    \item Connect the output from SUM and CARRY to logic indicators.
+    \item Apply various input combinations to the adder.
+    \item Observe the SUM and CARRY outputs and verify the truth table for each input/output combination.
+    \item Switch off the AC power supply.
+\end{enumerate}
+
+\subsection{Result/Conclusion}
+The Half Adder and Full Adder circuits were successfully constructed and their operations were verified against their respective truth tables, confirming the principles of binary addition.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXPERIMENT 4: MUX/DEMUX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiment 4: Multiplexer and Demultiplexer}
+
+\subsection{Aim}
+Construction of a 2x1 MUX and 4x1 MUX, and verification of an 8x1 MUX and 1:8 Demultiplexer.
+
+\subsection{Apparatus/Software Required}
+\begin{itemize}
+    \item Logic trainer kit
+    \item 8:1 Multiplexer (IC 74151)
+    \item 1:8 Demultiplexer (IC 74238)
+    \item NAND gates (IC 7400)
+    \item NOR gates (IC 7402)
+    \item Connecting wires
+    \item Logisim (for logic diagrams)
+\end{itemize}
+\subsection{Logic Diagram (Logisim)}
+Create a 2x1 MUX using NAND gates and a 4x1 MUX using NOR gates in Logisim. For the 8x1 MUX/1:8 DEMUX, sketch block-level diagrams and verify selection behavior.
+
+
+\subsection{Theory}
+\begin{itemize}
+    \item \textbf{Multiplexer (MUX):} A MUX is a circuit with many inputs but only one output. It uses select lines to choose one input and route its data to the output. For $N$ select lines, $2^N$ input lines can be chosen from.
+    \item \textbf{Demultiplexer (DEMUX):} A DEMUX performs the reverse operation, taking a single input and distributing it to one of many possible output lines, determined by the select lines.
+\end{itemize}
+
+\subsubsection{2x1 MUX using NAND Gates}
+A 2x1 MUX has two data inputs ($I_0, I_1$), one select line ($S_0$), and one output ($Y$). The Boolean expression is a Sum-of-Products:
+$$ Y = I_0 \cdot \overline{S_0} + I_1 \cdot S_0 $$
+This expression can be directly implemented using a two-level NAND gate circuit, as NAND gates are universal.
+
+\subsubsection{4x1 MUX using NOR Gates}
+A 4x1 MUX has four data inputs ($I_0$ to $I_3$), two select lines ($S_1, S_0$), and one output ($Y$). The Boolean expression is:
+$$ Y = I_0\overline{S_1}\overline{S_0} + I_1\overline{S_1}S_0 + I_2S_1\overline{S_0} + I_3S_1S_0 $$
+Implementing this function with only NOR gates is possible because NOR is also a universal gate.
+
+\subsubsection{8x1 MUX using an Integrated Circuit (IC)}
+For more complex functions, a dedicated IC like the 74151 is used. It contains the entire logic for an 8-to-1 data selector, requiring only external connections.
+
+\subsection{Implementations and Functional Tables}
+\subsubsection{2x1 MUX (NAND Implementation)}
+\begin{table}[htbp]
+    \centering
+    \caption{2x1 Multiplexer Functional Table}
+    \begin{tabular}{c c}
+        \toprule
+        \textbf{Select Line ($S_0$)} & \textbf{Output (Y)} \\ \midrule
+        0 & $I_0$ \\
+        1 & $I_1$ \\ \bottomrule
+    \end{tabular}
+\end{table}
+\textbf{Logic Diagram:} The circuit would be built using NAND gates to realize the expression $Y = I_0 \overline{S_0} + I_1 S_0$. This typically requires four NAND gates: one to invert $S_0$, two to create the product terms, and one to combine them.
+
+\subsubsection{4x1 MUX (NOR Implementation)}
+\begin{table}[htbp]
+    \centering
+    \caption{4x1 Multiplexer Functional Table}
+    \begin{tabular}{cc c}
+        \toprule
+        \multicolumn{2}{c}{\textbf{Select Lines}} & \textbf{Output (Y)} \\
+        \cmidrule(r){1-2}
+        \textbf{$S_1$} & \textbf{$S_0$} & \\ \midrule
+        0 & 0 & $I_0$ \\
+        0 & 1 & $I_1$ \\
+        1 & 0 & $I_2$ \\
+        1 & 1 & $I_3$ \\ \bottomrule
+    \end{tabular}
+\end{table}
+\textbf{Logic Diagram:} The circuit would be constructed using only NOR gates. This involves creating inverters for $S_1$ and $S_0$, and then using multiple NOR gates to create the four AND terms and the final OR term from the expression.
+
+\subsubsection{8x1 MUX (IC 74151)}
+\begin{table}[htbp]
+    \centering
+    \caption{8x1 Multiplexer Functional Table}
+    \begin{tabular}{ccc c}
+        \toprule
+        \multicolumn{3}{c}{\textbf{Select Lines}} & \textbf{Output} \\
+        \cmidrule(r){1-3}
+        \textbf{$S_2$} & \textbf{$S_1$} & \textbf{$S_0$} & \textbf{Y} \\ \midrule
+        0 & 0 & 0 & $D_0$ \\
+        0 & 0 & 1 & $D_1$ \\
+        0 & 1 & 0 & $D_2$ \\
+        0 & 1 & 1 & $D_3$ \\
+        1 & 0 & 0 & $D_4$ \\
+        1 & 0 & 1 & $D_5$ \\
+        1 & 1 & 0 & $D_6$ \\
+        1 & 1 & 1 & $D_7$ \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Connect the trainer kit to AC power supply.
+    \item For the 2x1 MUX, construct the circuit using NAND gates.
+    \item Connect inputs to logic sources and the output to a logic indicator.
+    \item Apply input combinations, toggle the select line, and verify the output matches the functional table.
+    \item Repeat the process for the 4x1 MUX using NOR gates.
+    \item For the 8x1 MUX IC, connect data and select lines to logic sources and the output to an indicator.
+    \item Cycle through all select line combinations and verify the output corresponds to the selected data input.
+    \item Switch off the AC power supply.
+\end{enumerate}
+
+\subsection{Result/Conclusion}
+The 2x1 MUX and 4x1 MUX were successfully constructed from NAND and NOR gates, respectively. The operation of the dedicated 8x1 MUX IC was also verified. The results for all circuits matched their expected functional tables.
+
+\end{document}
