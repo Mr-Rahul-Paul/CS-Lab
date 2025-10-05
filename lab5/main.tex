@@ -1,0 +1,225 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{pifont}
+
+% Define custom environments for problem sections
+\newcounter{problemcounter}
+\newenvironment{problem}[2]{%
+\stepcounter{problemcounter}
+\vspace{1em}
+\noindent\rule{\textwidth}{1pt}
+\begin{center}
+\Large\textbf{#1}
+\end{center}
+\noindent\rule{\textwidth}{1pt}
+\label{#2}
+\vspace{1em}
+}
+
+% Define code styling
+\lstset{
+language=C++,
+basicstyle=\ttfamily\small,
+numbers=left,
+numberstyle=\tiny\color{gray},
+commentstyle=\color{gray},
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+tabsize=2,
+showstringspaces=false,
+breaklines=true,
+captionpos=b,
+caption={Code Snippet}
+}
+
+\title{Runtime Analysis of 0/1 Knapsack Problem Algorithms}\\
+\author{Abhishek Beniwal, Aditya Purohit, Rahul Paul, Vaidya Parth \\
+\small{Roll no.: 202411002, 202411003, 202411078, 202411095} \\
+\small{Prof: Dr. Pareek} \\
+\small{Course : CS/IT-203} \\
+\small{Date : \today}}\\
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\newpage
+
+\section{Introduction}
+The 0/1 Knapsack Problem involves selecting items with given weights and values to maximize total value within a capacity constraint. We compare five implementations and analyze their runtime performance.
+
+\subsection*{1. Recursive Approach (No Memoization)}
+
+\begin{lstlisting}
+int KSrecur(int wt[], int val[], int n, int W)
+{
+    if (n == 0 || W == 0)
+        return 0;
+    if (wt[n - 1] > W)
+        return KSrecur(wt, val, n - 1, W);
+    return max(val[n - 1] + KSrecur(wt, val, n - 1, W - wt[n - 1]), 
+               KSrecur(wt, val, n - 1, W));
+}
+\end{lstlisting}
+
+Explores all combinations by recursively including or excluding each item. Base case returns 0 when no items or capacity remain. If item weight exceeds capacity, skip it; otherwise take maximum of including or excluding the item. Time complexity: $O(2^n)$ due to repeated subproblems.
+
+\newpage
+\subsection*{2. Top-Down Memoization}
+
+\begin{lstlisting}
+int KSmemo(int wt[], int val[], int n, int W, vector<vector<int>> &dp)
+{
+    if (n == 0 || W == 0)
+        return 0;
+    if (dp[n][W] != -1)
+        return dp[n][W];
+    if (wt[n - 1] > W)
+        return dp[n][W] = KSmemo(wt, val, n - 1, W, dp);
+    return dp[n][W] = max(val[n - 1] + KSmemo(wt, val, n - 1, W - wt[n - 1], dp), 
+                          KSmemo(wt, val, n - 1, W, dp));
+}
+\end{lstlisting}
+
+Optimizes recursion by storing results in a 2D \texttt{dp} array. Checks if \texttt{dp[n][W]} is already computed before recursing. Returns stored value if available, otherwise computes and stores result. Time complexity: $O(n \times W)$, Space: $O(n \times W)$.
+
+\newpage
+\subsection*{3. Bottom-Up Tabulation}
+
+\begin{lstlisting}
+int KStab(int wt[], int val[], int n, int W)
+{
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+    for (int i = 1; i <= n; i++)
+    {
+        for (int w = 1; w <= W; w++)
+        {
+            if (wt[i - 1] <= w)
+            {
+                dp[i][w] = max(val[i - 1] + dp[i - 1][w - wt[i - 1]], 
+                               dp[i - 1][w]);
+            }
+            else
+            {
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+    return dp[n][W];
+}
+\end{lstlisting}
+
+Iterative approach building a 2D table where \texttt{dp[i][w]} is the maximum value for first \texttt{i} items with capacity \texttt{w}. Fills table row by row from base case. For each cell, chooses max of including or excluding the item. Time: $O(n \times W)$, Space: $O(n \times W)$. Faster than memoization due to no recursion overhead.
+
+\newpage
+\subsection*{4. 2D Dynamic Programming (Optimized Implementation)}
+
+\begin{lstlisting}
+int knapsackDP(int capacity, vector<int> &weights, vector<int> &values, int n)
+{
+    // Create a 2D DP table
+    vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, 0));
+
+    // Build the table dp[][] in bottom-up manner
+    for (int i = 1; i <= n; i++)
+    {
+        for (int w = 1; w <= capacity; w++)
+        {
+            if (weights[i - 1] <= w)
+            {
+                // Max of including or excluding current item
+                dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], 
+                               dp[i - 1][w]);
+            }
+            else
+            {
+                // Can't include current item
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+
+    return dp[n][capacity];
+}
+\end{lstlisting}
+
+Cleaner implementation using C++ vectors instead of arrays. Same logic as tabulation with better memory management. Time: $O(n \times W)$, Space: $O(n \times W)$.
+
+\newpage
+\subsection*{5. 1D Space-Optimized Dynamic Programming}
+
+\begin{lstlisting}
+int knapsackDPOptimized(int capacity, vector<int> &weights, vector<int> &values, int n)
+{
+    vector<int> dp(capacity + 1, 0);
+
+    for (int i = 0; i < n; i++)
+    {
+        // Traverse from right to left to avoid using updated values
+        for (int w = capacity; w >= weights[i]; w--)
+        {
+            dp[w] = max(dp[w], dp[w - weights[i]] + values[i]);
+        }
+    }
+
+    return dp[capacity];
+}
+\end{lstlisting}
+
+Uses single 1D array instead of 2D table. Traverses capacity right to left to avoid overwriting needed values. Time: $O(n \times W)$, Space: $O(W)$. Faster in practice due to better cache performance and lower memory overhead.
+
+\newpage
+\section{Runtime Analysis and Performance Comparison}
+
+Tested 100 cases with sizes from 50 to 1040 items, comparing 2D DP and 1D space-optimized DP.
+
+\subsection*{Key Runtime Data}
+
+\begin{itemize}
+    \item \textbf{Size 50:} 2D: 0.264 ms, 1D: 0.039 ms
+    \item \textbf{Size 500:} 2D: 15.626 ms, 1D: 3.565 ms
+    \item \textbf{Size 1000:} 2D: 60.491 ms, 1D: 13.912 ms
+    \item \textbf{Size 1040:} 2D: 66.924 ms, 1D: 15.443 ms
+\end{itemize}
+
+1D version is 4-5x faster due to better cache locality, less memory allocation, and simpler access patterns. Both algorithms produce identical results.
+
+\subsection*{Time Complexity}
+
+\begin{itemize}
+    \item \textbf{Recursive:} $O(2^n)$
+    \item \textbf{Memoization:} $O(n \times W)$ time, $O(n \times W)$ space
+    \item \textbf{Tabulation:} $O(n \times W)$ time, $O(n \times W)$ space
+    \item \textbf{2D DP:} $O(n \times W)$ time, $O(n \times W)$ space
+    \item \textbf{1D DP:} $O(n \times W)$ time, $O(W)$ space
+\end{itemize}
+
+\newpage
+\section{Runtime Performance Graph}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{runtime_graph.png}
+\caption{Runtime Comparison: 2D DP vs 1D Space-Optimized DP}
+\label{fig:runtime_graph}
+\end{figure}
+
+The graph shows 1D version maintains consistent performance advantage. Runtime grows quadratically for both, but 1D has lower constant factor.
+
+\section{Conclusion}
+
+The 1D space-optimized DP is the best solution, offering 4-5x faster runtime and reduced memory usage ($O(W)$ vs $O(n \times W)$). Recursive approach is impractical due to exponential complexity.
+
+\bibliographystyle{apalike}
+\end{document}
