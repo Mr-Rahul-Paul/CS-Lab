@@ -3,7 +3,7 @@
         check every pair (i < j) and count when arr[i] > arr[j]
         use merge to count cross inversions in O(n log n)
     */
-    #include <bits/stdc++.h>
+    #include <bits/stdc++.h>    
 
     using namespace std;
 

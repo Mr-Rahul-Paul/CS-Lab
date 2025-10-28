@@ -6,99 +6,72 @@
 #include <algorithm>
 using namespace std;
 
-vector<int> get_dist(vector<pair<int, int>> points_collection, int num_points)
+vector<int> g(const vector<pair<int,int>> &p, int n)
 {
-    vector<int> squared_distances(num_points);
-    for (int idx = 0; idx < num_points; idx++)
+    vector<int> D(n);
+    for (int j = 0; j < n; j++)
     {
-        // formula to get the distance from origin
-        // we removed the sqrt to optimise the code and solve approxiamtion issues
-        squared_distances[idx] = (points_collection[idx].first * points_collection[idx].first + points_collection[idx].second * points_collection[idx].second);
+        D[j] = (p[j].first * p[j].first + p[j].second * p[j].second);
     }
-    return squared_distances;
+    return D;
 }
 
-int partition(vector<pair<int, int>> &points_vec, vector<int> &dist_vec, int start_index, int end_index)
+int part(vector<pair<int,int>> &P, vector<int> &D, int l, int r)
 {
-    int pivot_val = dist_vec[start_index];
-    int left_ptr = start_index;
-    int right_ptr = end_index;
-    while (left_ptr < right_ptr)
+    int pv = D[l];
+    int L = l;
+    int R = r;
+    while (L < R)
     {
-        while (dist_vec[left_ptr] <= pivot_val && left_ptr <= end_index - 1)
+        while (D[L] <= pv && L <= r - 1) L++;
+        while (D[R] > pv && R >= l + 1) R--;
+        if (L < R)
         {
-            left_ptr++;
-        }
-
-        while (dist_vec[right_ptr] > pivot_val && right_ptr >= start_index + 1)
-        {
-            right_ptr--;
-        }
-
-        if (left_ptr < right_ptr)
-        {
-            swap(dist_vec[left_ptr], dist_vec[right_ptr]);
-            swap(points_vec[left_ptr], points_vec[right_ptr]);
+            swap(D[L], D[R]);
+            swap(P[L], P[R]);
         }
     }
-    swap(dist_vec[start_index], dist_vec[right_ptr]);
-    swap(points_vec[start_index], points_vec[right_ptr]);
-    return right_ptr;
+    swap(D[l], D[R]);
+    swap(P[l], P[R]);
+    return R;
 }
 
-void findIthClosest(vector<pair<int, int>> &arr, vector<int> &dist, int low, int high, int i)
+void f(vector<pair<int,int>> &P, vector<int> &D, int l, int r, int t)
 {
-    if (low < high)
+    if (l < r)
     {
-        int pIndex = partition(arr, dist, low, high);
-
-        if (pIndex == i - 1)
-        {
-            return;
-        }
-        else if (pIndex < i - 1)
-        {
-            findIthClosest(arr, dist, pIndex + 1, high, i);
-        }
-        else
-        {
-            findIthClosest(arr, dist, low, pIndex - 1, i);
-        }
+        int pi = part(P, D, l, r);
+        if (pi == t - 1) return;
+        else if (pi < t - 1) f(P, D, pi + 1, r, t);
+        else f(P, D, l, pi - 1, t);
     }
 }
 
 void solve()
 {
-    int n, i;
-    cin >> n >> i;
-    vector<pair<int, int>> arr;
-    for (int k = 0; k < n; k++)
+    int n, t;
+    cin >> n >> t;
+    vector<pair<int,int>> P;
+    for (int j = 0; j < n; j++)
     {
         int x, y;
         cin >> x >> y;
-        arr.push_back({x, y});
+        P.push_back({x, y});
     }
-    vector<int> dist = get_dist(arr, n);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     cout<<dist[i]<<endl;
-    // }
-    findIthClosest(arr, dist, 0, n - 1, i);
+    vector<int> D = g(P, n);
+    f(P, D, 0, n - 1, t);
 
-    vector<pair<int, int>> closest_points;
-    for (int k = 0; k < i; k++)
-    {
-        closest_points.push_back(arr[k]);
-    }
+    vector<pair<int,int>> C;
+    for (int j = 0; j < t; j++) C.push_back(P[j]);
 
-    sort(closest_points.begin(), closest_points.end(), [](const pair<int, int> &a, const pair<int, int> &b)
-         {
+    sort(C.begin(), C.end(), [](const pair<int,int> &a, const pair<int,int> &b) {
         if (a.first != b.first) return a.first < b.first;
-        return a.second < b.second; });
+        return a.second < b.second;
+    });
 
-    for (int k = 0; k < i; k++)
+    for (int j = 0; j < t; j++)
     {
-        cout << closest_points[k].first << " " << closest_points[k].second << endl;
+        cout << C[j].first << " " << C[j].second << endl;
     }
 }
 
@@ -110,4 +83,5 @@ int main()
         solve();
         cout << endl;
     }
-}
+    return 0;
+}   
